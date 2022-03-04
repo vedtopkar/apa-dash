@@ -34,7 +34,7 @@ active_df = df[df['pas_name'] == active_pas]
 projection_tpm = float(active_df['Projection_Mean_TPM'])
 soma_tpm = float(active_df['Soma_Mean_TPM'])
 
-bars = px.bar(x=[0, 1], y=[soma_tpm, projection_tpm])
+bars = px.bar(x=[0, 1], y=[soma_tpm, projection_tpm], labels={'x': })
 
 app.layout = html.Div([
     html.Div([
