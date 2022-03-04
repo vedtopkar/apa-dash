@@ -25,8 +25,10 @@ def header_colors():
 
 # Differentially expressed genes (identified in R, see assets/data/rna/README.md)
 
-df = pd.read_csv('20220201_counted_pas_for_deseq.csv')
-volcano = px.scatter(x=df['log2FoldChange'], y=-np.log(df['padj']), hover_name=df['pas_name'])
+# df = pd.read_csv('20220201_counted_pas_for_deseq.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/vedtopkar/apa-dash/8049095cc981ee5f0528f105d578f093eb5d775c/20220201_counted_pas_for_deseq.csv')
+df['nl_padj'] = -np.log(df['padj'])
+volcano = px.scatter(df, x='log2FoldChange', y='nl_padj', hover_name='pas_name', hover_data=['gene_name'])
 volcano.update_layout(title_text='log2FC pAdj')
 volcano.update_layout(clickmode='event')
 
@@ -35,7 +37,7 @@ active_df = df[df['pas_name'] == active_pas]
 projection_tpm = float(active_df['Projection_Mean_TPM'])
 soma_tpm = float(active_df['Soma_Mean_TPM'])
 
-bars = px.bar(x=[0, 1], y=[soma_tpm, projection_tpm], labels={'x': })
+bars = px.bar(x=[0, 1], y=[soma_tpm, projection_tpm])
 
 app.layout = html.Div([
     html.Div([
