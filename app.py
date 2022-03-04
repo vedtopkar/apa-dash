@@ -12,6 +12,7 @@ text_style = {
 }
 
 app = Dash(__name__)
+server = app.server
 
 def description():
     return 'An interactive in-browser track viewer.'
