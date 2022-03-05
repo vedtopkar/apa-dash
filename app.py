@@ -37,7 +37,12 @@ active_df = df[df['pas_name'] == active_pas]
 projection_tpm = float(active_df['Projection_Mean_TPM'])
 soma_tpm = float(active_df['Soma_Mean_TPM'])
 
-bars = px.bar(x=[0, 1], y=[soma_tpm, projection_tpm])
+def plot_bar(soma_tpm, projection_tpm):
+    tdf = pd.DataFrame([{'Compartment': 'Soma', 'TPM': soma_tpm}, {'Compartment': 'Projection', 'TPM': projection_tpm}])
+    bars = px.bar(tdf, x='Compartment', y='TPM')
+    return bars
+
+bars = plot_bar(soma_tpm, projection_tpm)
 
 app.layout = html.Div([
     html.Div([
@@ -77,8 +82,7 @@ def update_expression_bars(clickData):
     active_df = df.iloc[clickData['points'][0]['pointNumber']]
     projection_tpm = float(active_df['Projection_Mean_TPM'])
     soma_tpm = float(active_df['Soma_Mean_TPM'])
-    bars = px.bar(x=[0, 1], y=[soma_tpm, projection_tpm])
-    return bars
+    return plot_bar(soma_tpm, projection_tpm)
 
 
 if __name__ == '__main__':
