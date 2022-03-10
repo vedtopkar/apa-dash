@@ -32,7 +32,7 @@ def header_colors():
 # Differentially expressed genes (identified in R, see assets/data/rna/README.md)
 
 # df = pd.read_csv('20220201_counted_pas_for_deseq.csv')
-df = pd.read_csv('https://raw.githubusercontent.com/vedtopkar/apa-dash/8049095cc981ee5f0528f105d578f093eb5d775c/20220201_counted_pas_for_deseq.csv')
+df = pd.read_csv('20220201_counted_pas_for_deseq.csv')
 df['nl_padj'] = -np.log(df['padj'])
 volcano = px.scatter(df, x='log2FoldChange', y='nl_padj', hover_name='pas_name', hover_data=['gene_name'])
 volcano.update_layout(title_text='log2FC vs pAdj')
